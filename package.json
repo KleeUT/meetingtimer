@@ -1,0 +1,42 @@
+{
+  "name": "pomodo",
+  "version": "0.1.0",
+  "description": "Pomodoro timer",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node ./server/server.js",
+    "test": "mocha .\\test",
+    "build": "webpack --colors --progress",
+    "build-w": "webpack -w --colors --progress",
+    "lint": "eslint -c .eslintrc.json **/*.jsx",
+    "ilint": "eslint --init"
+  },
+  "author": "kleeut",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "morgan": "^1.7.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "request": "^2.74.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-2": "^6.13.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.12.0",
+    "eslint-plugin-react": "^6.8.0",
+    "gulp-mocha": "^3.0.0",
+    "gulp-util": "^3.0.7",
+    "mocha": "^2.5.3",
+    "webpack": "^1.13.1",
+    "webpack-stream": "^3.2.0"
+  }
+}
