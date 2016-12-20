@@ -2,15 +2,6 @@ import React, {  PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { setAveragePay, setNumberOfParticipants } from './actions/actions';
 
-const ActionButtons = () => {
-  return (
-    <div>
-      <button value="Button 1" className="btn btn-primary"/>
-    </div>
-  )
-}
-
-
 const CostEntry = ({averagePay, participants, onAveragePayChanged, onNumberOfParticipantsChanged }) => {
   return (
     <div>
@@ -23,7 +14,6 @@ const CostEntry = ({averagePay, participants, onAveragePayChanged, onNumberOfPar
         <label htmlFor="attendeeInput">Number of meeting participants:</label>
         <input id="attendeeInput" type="number" className="form-control" value={participants} onChange={onNumberOfParticipantsChanged} />
       </div>
-      <ActionButtons />
     </div>
   );
 };

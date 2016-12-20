@@ -1,6 +1,6 @@
 import React from 'react';
 // import React, {PropTypes, Component} from 'react';
-// import ActionButtons from './ActionButtons.jsx';
+import ActionButtons from './ActionButtons.jsx';
 
 import CostEntry from './CostEntry.jsx';
 import CostDisplay from './CostDisplay.jsx';
@@ -16,11 +16,16 @@ const ContainerView = () => {
         </div>
         <div className='row'>
           <div className="col-xs-12 col-sm-3 col-md-5" />
-
           <div className="col-xs-12 col-sm-6 col-md-2">
             <CostEntry />
           </div>
-
+          <div className="col-xs-12 col-sm-3 col-md-5" />
+        </div>
+        <div className='row'>
+          <div className="col-xs-12 col-sm-3 col-md-5" />
+          <div className="col-xs-12 col-sm-6 col-md-2">
+            <ActionButtons />
+          </div>
           <div className="col-xs-12 col-sm-3 col-md-5" />
         </div>
         <div className="row">
