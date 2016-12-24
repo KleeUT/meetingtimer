@@ -10,7 +10,7 @@ let store = createStore(resucers);
 
 const stopWatch = new StopWatch(store);
 
-stopWatch.start;
+stopWatch.listen();
 
 ReactDOM.render(
     <Provider store={store}>

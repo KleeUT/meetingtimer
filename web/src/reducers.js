@@ -14,7 +14,7 @@ const time = (state = { totalSeconds: 0}, action) => {
   }
 }
 
-const meetingCost = (state = {}, action) => {
+const meetingCost = (state = {averagePay:0,participants:0}, action) => {
   switch(action.type){
     case 'SET_AVERAGE_PAY':
       return {
@@ -27,7 +27,7 @@ const meetingCost = (state = {}, action) => {
         participants: action.participants
       }
   }
-  return {averagePay:0,participants:0}
+  return state;
 }
 
 const timerRunning = (state = {}, action) => {

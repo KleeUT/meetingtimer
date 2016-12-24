@@ -9,13 +9,13 @@ export default class StopWatch {
   }
 
   listen(){
-    this.unsubscribe = store.subscribe(this._stateupdated.bind(this));
+    this.unsubscribe = this.store.subscribe(this._stateupdated.bind(this));
   }
 
   _start(){
     this.interval = setInterval(() => {
       this.store.dispatch(timerTick);
-    }, this.everySecond0);
+    }, this.everySecond);
     this.store.dispatch(timerStarted);
   }
 
@@ -25,6 +25,7 @@ export default class StopWatch {
   }
 
   _stateupdated(){
+    console.log("Timer")
     if(this.store.getState().timerRunning.startTimer){
       this._start();
     }

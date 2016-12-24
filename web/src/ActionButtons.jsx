@@ -3,8 +3,13 @@ import React, {PropTypes} from 'react';
 import {startTimer, stopTimer} from './actions/actions'
 const ActionButtons = ({startTimer, stopTimer, timerRunning}) => {
     return (
-        <div className={timerRunning? 'hidden' : 'visible'}>
-            <button className="btn btn-primary" content="Something" value="Orother" onClick={startTimer}>Start</button>
+        <div className="row">
+            <div className={timerRunning? 'hidden' : 'visible'}>
+                <button className="btn btn-primary form-control" onClick={startTimer}>Start</button>
+            </div>
+            <div className={timerRunning? 'visible' : 'hidden'}>
+                <button className="btn btn-warning form-control" onClick={stopTimer}>Stop</button>        
+            </div>
         </div>
     )
 }

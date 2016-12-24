@@ -76,7 +76,7 @@
 	
 	var stopWatch = new _StopWatch2.default(store);
 	
-	stopWatch.start;
+	stopWatch.listen();
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -6191,7 +6191,7 @@
 	};
 	
 	var meetingCost = function meetingCost() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { averagePay: 0, participants: 0 };
 	  var action = arguments[1];
 	
 	  switch (action.type) {
@@ -6204,7 +6204,7 @@
 	        participants: action.participants
 	      });
 	  }
-	  return { averagePay: 0, participants: 0 };
+	  return state;
 	};
 	
 	var timerRunning = function timerRunning() {
@@ -6347,11 +6347,24 @@
 	
 	    return _react2.default.createElement(
 	        'div',
-	        { className: timerRunning ? 'hidden' : 'visible' },
+	        { className: 'row' },
 	        _react2.default.createElement(
-	            'button',
-	            { className: 'btn btn-primary', content: 'Something', value: 'Orother', onClick: startTimer },
-	            'Start'
+	            'div',
+	            { className: timerRunning ? 'hidden' : 'visible' },
+	            _react2.default.createElement(
+	                'button',
+	                { className: 'btn btn-primary form-control', onClick: startTimer },
+	                'Start'
+	            )
+	        ),
+	        _react2.default.createElement(
+	            'div',
+	            { className: timerRunning ? 'visible' : 'hidden' },
+	            _react2.default.createElement(
+	                'button',
+	                { className: 'btn btn-warning form-control', onClick: stopTimer },
+	                'Stop'
+	            )
 	        )
 	    );
 	};
@@ -6497,10 +6510,10 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    onAveragePayChanged: function onAveragePayChanged(e) {
-	      dispatch((0, _actions.setAveragePay)(e.target.value));
+	      dispatch((0, _actions.setAveragePay)(Number(e.target.value)));
 	    },
 	    onNumberOfParticipantsChanged: function onNumberOfParticipantsChanged(e) {
-	      dispatch((0, _actions.setNumberOfParticipants)(e.target.value));
+	      dispatch((0, _actions.setNumberOfParticipants)(Number(e.target.value)));
 	    }
 	  };
 	};
@@ -6526,23 +6539,44 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var CostDisplay = function CostDisplay(_ref) {
-	  var totalCost = _ref.totalCost;
+	  var totalCost = _ref.totalCost,
+	      totalSeconds = _ref.totalSeconds,
+	      totalTime = _ref.totalTime;
 	
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'timeDisplay' },
-	    '$',
-	    totalCost
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'timeDisplay' },
+	      '$',
+	      totalCost
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'Total Time:'
+	      ),
+	      ' ',
+	      totalTime
+	    )
 	  );
 	};
 	
 	CostDisplay.propTypes = {
-	  totalCost: _react.PropTypes.string
+	  totalCost: _react.PropTypes.number,
+	  totalSeconds: _react.PropTypes.number,
+	  totalTime: _react.PropTypes.string
 	};
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    seconds: calculateCostPerSecond(state.meetingCost.averagePay, state.meetingCost.participants) * state.time.totalSeconds
+	    totalCost: calculateCostPerSecond(state.meetingCost.averagePay, state.meetingCost.participants) * state.time.totalSeconds,
+	    totalSeconds: state.time.totalSeconds,
+	    totalTime: formatAsHoursMinutesSeconds(state.time.totalSeconds)
 	  };
 	};
 	
@@ -6556,7 +6590,15 @@
 	var secondsPerWeek = secondsPerDay * 5;
 	var secondsPerYear = secondsPerWeek * 48;
 	function calculateCostPerSecond(averageWage, participants) {
-	  return averageWage / secondsPerYear * participants;
+	  var totalCost = averageWage / secondsPerYear * participants;
+	  return Math.round(totalCost * 100) / 100;
+	}
+	
+	function formatAsHoursMinutesSeconds(totalSeconds) {
+	  var hours = Math.floor(totalSeconds / secondsPerHour);
+	  var minutes = Math.floor((totalSeconds - hours * secondsPerHour) / secondsPerMinute);
+	  var seconds = totalSeconds % secondsPerMinute;
+	  return hours + ':' + minutes + ':' + seconds;
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CostDisplay);
@@ -24003,7 +24045,7 @@
 /* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -24026,29 +24068,30 @@
 	  }
 	
 	  _createClass(StopWatch, [{
-	    key: 'listen',
+	    key: "listen",
 	    value: function listen() {
-	      this.unsubscribe = store.subscribe(this._stateupdated.bind(this));
+	      this.unsubscribe = this.store.subscribe(this._stateupdated.bind(this));
 	    }
 	  }, {
-	    key: '_start',
+	    key: "_start",
 	    value: function _start() {
 	      var _this = this;
 	
 	      this.interval = setInterval(function () {
 	        _this.store.dispatch(_actions.timerTick);
-	      }, this.everySecond0);
+	      }, this.everySecond);
 	      this.store.dispatch(_actions.timerStarted);
 	    }
 	  }, {
-	    key: '_stop',
+	    key: "_stop",
 	    value: function _stop() {
 	      clearInterval(this.interval);
 	      this.store.dispatch(_actions.timerStopped);
 	    }
 	  }, {
-	    key: '_stateupdated',
+	    key: "_stateupdated",
 	    value: function _stateupdated() {
+	      console.log("Timer");
 	      if (this.store.getState().timerRunning.startTimer) {
 	        this._start();
 	      }
@@ -24058,7 +24101,7 @@
 	      }
 	    }
 	  }, {
-	    key: '_publishTicAction',
+	    key: "_publishTicAction",
 	    value: function _publishTicAction() {
 	      this.store.dispatch(_actions.timerTick);
 	    }

@@ -1,21 +1,31 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-var CostDisplay = ({totalCost}) => {
+var CostDisplay = ({totalCost, totalSeconds, totalTime}) => {
   return (
+    <div>
     <div className='timeDisplay'>
       ${totalCost}
     </div>
+    <div>
+    <label>Total Time:</label> {totalTime}
+    </div>
+    </div>
+
   );
 };
 
 CostDisplay.propTypes = {
-  totalCost: PropTypes.string
+  totalCost: PropTypes.number,
+  totalSeconds: PropTypes.number,
+  totalTime: PropTypes.string
 };
 
 var mapStateToProps = (state) => {
   return {
-    seconds: calculateCostPerSecond(state.meetingCost.averagePay, state.meetingCost.participants) * state.time.totalSeconds
+    totalCost: calculateCostPerSecond(state.meetingCost.averagePay, state.meetingCost.participants) * state.time.totalSeconds,
+    totalSeconds: state.time.totalSeconds,
+    totalTime: formatAsHoursMinutesSeconds(state.time.totalSeconds)
   };
 };
 
@@ -29,7 +39,15 @@ const secondsPerDay = secondsPerHour * 8;
 const secondsPerWeek = secondsPerDay * 5;
 const secondsPerYear = secondsPerWeek * 48;
 function calculateCostPerSecond(averageWage, participants) {
-  return (averageWage/secondsPerYear) * participants;
+  let totalCost = (averageWage/secondsPerYear) * participants;
+  return Math.round(totalCost * 100)/100;
+}
+
+function formatAsHoursMinutesSeconds(totalSeconds){
+  let hours = Math.floor(totalSeconds/(secondsPerHour));
+  let minutes = Math.floor((totalSeconds - hours * secondsPerHour)/secondsPerMinute)
+  let seconds = totalSeconds % secondsPerMinute;
+  return `${hours}:${minutes}:${seconds}`;
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CostDisplay);

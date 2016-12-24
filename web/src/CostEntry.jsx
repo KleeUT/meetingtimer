@@ -36,10 +36,10 @@ var mapStateToProps = (state) => {
 var mapDispatchToProps = (dispatch) => {
   return {
     onAveragePayChanged: (e) => {
-      dispatch(setAveragePay(e.target.value));
+      dispatch(setAveragePay(Number(e.target.value)));
     },
     onNumberOfParticipantsChanged: (e) => {
-      dispatch(setNumberOfParticipants(e.target.value));
+      dispatch(setNumberOfParticipants(Number(e.target.value)));
     }
   };
 };
