@@ -6163,7 +6163,7 @@
 /* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -6182,6 +6182,12 @@
 	      {
 	        return _extends({}, state, {
 	          totalSeconds: state.totalSeconds + 1
+	        });
+	      }
+	    case "STOP_TIMER":
+	      {
+	        return _extends({}, state, {
+	          totalSeconds: 0
 	        });
 	      }
 	
@@ -6433,10 +6439,6 @@
 	  type: 'TIMER_STOPPED'
 	};
 	
-	var bumpFive = exports.bumpFive = {
-	  type: 'BUMP_FIVE'
-	};
-	
 	var timerTick = exports.timerTick = {
 	  type: 'TIMER_TICK'
 	};
@@ -6465,11 +6467,12 @@
 	  var averagePay = _ref.averagePay,
 	      participants = _ref.participants,
 	      onAveragePayChanged = _ref.onAveragePayChanged,
-	      onNumberOfParticipantsChanged = _ref.onNumberOfParticipantsChanged;
+	      onNumberOfParticipantsChanged = _ref.onNumberOfParticipantsChanged,
+	      timerRunning = _ref.timerRunning;
 	
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: timerRunning ? 'hidden' : 'visible' },
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'form-group' },
@@ -6497,13 +6500,15 @@
 	  averagePay: _react.PropTypes.number,
 	  participants: _react.PropTypes.number,
 	  onAveragePayChanged: _react.PropTypes.func,
-	  onNumberOfParticipantsChanged: _react.PropTypes.func
+	  onNumberOfParticipantsChanged: _react.PropTypes.func,
+	  timerRunning: _react.PropTypes.bool
 	};
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
 	    averagePay: state.meetingCost.averagePay,
-	    participants: state.meetingCost.participants
+	    participants: state.meetingCost.participants,
+	    timerRunning: state.timerRunning.timerStarted
 	  };
 	};
 	
@@ -6541,42 +6546,50 @@
 	var CostDisplay = function CostDisplay(_ref) {
 	  var totalCost = _ref.totalCost,
 	      totalSeconds = _ref.totalSeconds,
-	      totalTime = _ref.totalTime;
+	      totalTime = _ref.totalTime,
+	      timerRunning = _ref.timerRunning;
 	
 	  return _react2.default.createElement(
 	    'div',
 	    null,
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'timeDisplay' },
+	      { className: 'costDisplay' },
 	      '$',
 	      totalCost
 	    ),
 	    _react2.default.createElement(
 	      'div',
-	      null,
+	      { className: timerRunning ? 'visible' : 'hidden' },
 	      _react2.default.createElement(
-	        'label',
-	        null,
-	        'Total Time:'
-	      ),
-	      ' ',
-	      totalTime
-	    )
+	        'div',
+	        { className: 'timeDisplay' },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Total Time:'
+	        ),
+	        ' ',
+	        totalTime
+	      )
+	    ),
+	    _react2.default.createElement('div', { className: timerRunning ? 'hidden' : 'visible' })
 	  );
 	};
 	
 	CostDisplay.propTypes = {
 	  totalCost: _react.PropTypes.number,
 	  totalSeconds: _react.PropTypes.number,
-	  totalTime: _react.PropTypes.string
+	  totalTime: _react.PropTypes.string,
+	  timerRunning: _react.PropTypes.bool
 	};
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
 	    totalCost: calculateCostPerSecond(state.meetingCost.averagePay, state.meetingCost.participants) * state.time.totalSeconds,
 	    totalSeconds: state.time.totalSeconds,
-	    totalTime: formatAsHoursMinutesSeconds(state.time.totalSeconds)
+	    totalTime: formatAsHoursMinutesSeconds(state.time.totalSeconds),
+	    timerRunning: state.timerRunning.timerStarted
 	  };
 	};
 	

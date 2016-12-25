@@ -8,11 +8,13 @@ body{
   background-color: rgb(0,10 ,0);
   color : #FFF;
 }
-.timeDisplay{
+.costDisplay{
   font-size: 2.5em;
   text-align: center;
-  color : #EEE;  
   background-color: rgb(0,10 ,0);
+}
+.timeDisplay{
+  text-align: center
 }
 .actionButtons{
   text-align: center;

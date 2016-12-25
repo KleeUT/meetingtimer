@@ -28,10 +28,6 @@ export const timerStopped = {
   type: 'TIMER_STOPPED'
 };
 
-export const bumpFive = {
-  type: 'BUMP_FIVE'
-};
-
 export const timerTick = {
   type: 'TIMER_TICK'
 };

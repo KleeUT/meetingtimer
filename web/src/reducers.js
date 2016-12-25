@@ -9,6 +9,12 @@ const time = (state = { totalSeconds: 0}, action) => {
             totalSeconds: state.totalSeconds + 1
           }
         }
+        case "STOP_TIMER" : {
+          return {
+            ... state, 
+            totalSeconds: 0
+          }
+        }
 
       default: return state;
   }

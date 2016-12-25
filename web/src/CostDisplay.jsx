@@ -1,14 +1,19 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-var CostDisplay = ({totalCost, totalSeconds, totalTime}) => {
+var CostDisplay = ({totalCost, totalSeconds, totalTime, timerRunning}) => {
   return (
     <div>
-    <div className='timeDisplay'>
+    <div className='costDisplay'>
       ${totalCost}
     </div>
-    <div>
-    <label>Total Time:</label> {totalTime}
+    <div className={timerRunning? 'visible' : 'hidden' }>
+      <div className='timeDisplay'>
+          <label>Total Time:</label> {totalTime}
+      </div>
+    </div>
+    <div className={timerRunning? 'hidden' : 'visible'}>
+      
     </div>
     </div>
 
@@ -18,14 +23,16 @@ var CostDisplay = ({totalCost, totalSeconds, totalTime}) => {
 CostDisplay.propTypes = {
   totalCost: PropTypes.number,
   totalSeconds: PropTypes.number,
-  totalTime: PropTypes.string
+  totalTime: PropTypes.string,
+  timerRunning: PropTypes.bool
 };
 
 var mapStateToProps = (state) => {
   return {
     totalCost: calculateCostPerSecond(state.meetingCost.averagePay, state.meetingCost.participants) * state.time.totalSeconds,
     totalSeconds: state.time.totalSeconds,
-    totalTime: formatAsHoursMinutesSeconds(state.time.totalSeconds)
+    totalTime: formatAsHoursMinutesSeconds(state.time.totalSeconds),
+    timerRunning: state.timerRunning.timerStarted
   };
 };
 
