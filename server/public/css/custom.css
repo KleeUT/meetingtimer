@@ -4,21 +4,28 @@ body{
   color:#FFF;
   font-family: 'Comfortaa', cursive;
 }
+
 .heading{
   background-color: rgb(0,10 ,0);
   color : #FFF;
+  box-shadow: 0 0 5px rgb(0,10, 0);
 }
+
 .costDisplay{
   font-size: 2.5em;
   text-align: center;
   background-color: rgb(0,10 ,0);
+  box-shadow: 0 0 5em rgb(0,10, 0);  
 }
+
 .timeDisplay{
   text-align: center
 }
+
 .actionButtons{
   text-align: center;
 }
+
 .actionButton{
   font-size: 1.5em;
 }

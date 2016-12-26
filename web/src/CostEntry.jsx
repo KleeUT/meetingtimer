@@ -4,20 +4,19 @@ import { setAveragePay, setNumberOfParticipants } from './actions/actions';
 
 const CostEntry = ({averagePay, participants, onAveragePayChanged, onNumberOfParticipantsChanged, timerRunning }) => {
   return (
-    <div className={timerRunning? 'hidden' : 'visible'}>
+    <div>
       <div className="form-group">
         <label htmlFor="costInput">Average Yearly Wage:</label>
-        <input id="costInput" type="number" className="form-control" value={averagePay} onChange={onAveragePayChanged} />
+        <input id="costInput" type="number" className="form-control" value={averagePay} onChange={onAveragePayChanged} disabled={timerRunning ? 'disabled' : ''} />
       </div>
 
       <div className="form-group">
         <label htmlFor="attendeeInput">Number of meeting participants:</label>
-        <input id="attendeeInput" type="number" className="form-control" value={participants} onChange={onNumberOfParticipantsChanged} />
+        <input id="attendeeInput" type="number" className="form-control" value={participants} onChange={onNumberOfParticipantsChanged}   disabled={timerRunning ? 'disabled' : ''} />
       </div>
     </div>
   );
 };
-
 
 CostEntry.propTypes = {
   averagePay: PropTypes.number,

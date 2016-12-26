@@ -25,7 +25,6 @@ export default class StopWatch {
   }
 
   _stateupdated(){
-    console.log("Timer")
     if(this.store.getState().timerRunning.startTimer){
       this._start();
     }

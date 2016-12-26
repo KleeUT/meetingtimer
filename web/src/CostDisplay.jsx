@@ -21,7 +21,7 @@ var CostDisplay = ({totalCost, totalSeconds, totalTime, timerRunning}) => {
 };
 
 CostDisplay.propTypes = {
-  totalCost: PropTypes.number,
+  totalCost: PropTypes.string,
   totalSeconds: PropTypes.number,
   totalTime: PropTypes.string,
   timerRunning: PropTypes.bool
@@ -29,7 +29,7 @@ CostDisplay.propTypes = {
 
 var mapStateToProps = (state) => {
   return {
-    totalCost: calculateCostPerSecond(state.meetingCost.averagePay, state.meetingCost.participants) * state.time.totalSeconds,
+    totalCost: "" + totalCostSoFar(state),
     totalSeconds: state.time.totalSeconds,
     totalTime: formatAsHoursMinutesSeconds(state.time.totalSeconds),
     timerRunning: state.timerRunning.timerStarted
@@ -45,9 +45,13 @@ const secondsPerHour = secondsPerMinute * 60;
 const secondsPerDay = secondsPerHour * 8;
 const secondsPerWeek = secondsPerDay * 5;
 const secondsPerYear = secondsPerWeek * 48;
+
+function totalCostSoFar(state){
+  return (calculateCostPerSecond(state.meetingCost.averagePay, state.meetingCost.participants) * state.time.totalSeconds).toFixed(2);
+}
+
 function calculateCostPerSecond(averageWage, participants) {
-  let totalCost = (averageWage/secondsPerYear) * participants;
-  return Math.round(totalCost * 100)/100;
+  return (averageWage/secondsPerYear) * participants;
 }
 
 function formatAsHoursMinutesSeconds(totalSeconds){
