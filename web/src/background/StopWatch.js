@@ -1,4 +1,4 @@
-import {timerTick, timerStopped, timerStarted} from '../actions/actions.js';
+import {timerTick, timerStopped, timerStarted, timerPaused} from '../actions/actions.js';
 
 export default class StopWatch {
   constructor(store){
@@ -23,10 +23,19 @@ export default class StopWatch {
     clearInterval(this.interval);
     this.store.dispatch(timerStopped);
   }
+  
+  _pause(){
+    console.log("pause");
+    clearInterval(this.interval);
+    this.store.dispatch(timerPaused);
+  }
 
   _stateupdated(){
     if(this.store.getState().timerRunning.startTimer){
       this._start();
+    }
+    if (this.store.getState().timerRunning.pauseTimer){
+      this._pause();
     }
 
     if (this.store.getState().timerRunning.stopTimer){

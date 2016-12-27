@@ -1,14 +1,19 @@
 import {connect} from 'react-redux'
 import React, {PropTypes} from 'react';
-import {startTimer, stopTimer} from './actions/actions'
-const ActionButtons = ({startTimer, stopTimer, timerRunning, fieldsValid}) => {
+import {startTimer, stopTimer, pauseTimer} from './actions/actions'
+const ActionButtons = ({startTimer, stopTimer, timerRunning, fieldsValid, pauseTimer}) => {
     return (
         <div className="row">
             <div className={timerRunning? 'hidden' : 'visible'}>
                 <button className="btn btn-primary form-control" onClick={startTimer} disabled={fieldsValid ? '' : 'disabled'}>Start</button>
             </div>
             <div className={timerRunning? 'visible' : 'hidden'}>
-                <button className="btn btn-warning form-control" onClick={stopTimer}>Stop</button>        
+                <div className="form-group">
+                    <button className="btn btn-warning form-control" onClick={pauseTimer}>Pause</button>    
+                </div>
+                <div className="form-group">
+                    <button className="btn btn-danger form-control" onClick={stopTimer}>Stop</button>        
+                </div>
             </div>
         </div>
     )
@@ -28,6 +33,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         stopTimer: () => {
             dispatch(stopTimer)
+        },
+        pauseTimer: () => {
+            dispatch(pauseTimer)
         }
     }
 }

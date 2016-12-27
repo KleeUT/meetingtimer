@@ -24,6 +24,14 @@ export const timerStarted = {
   type: 'TIMER_STARTED'
 };
 
+export const pauseTimer = {
+  type: 'PAUSE_TIMER'
+}
+
+export const timerPaused = {
+  type: 'TIMER_PAUSED'
+}
+
 export const timerStopped = {
   type: 'TIMER_STOPPED'
 };

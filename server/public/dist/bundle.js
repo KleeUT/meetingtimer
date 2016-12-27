@@ -6214,18 +6214,28 @@
 	};
 	
 	var timerRunning = function timerRunning() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+	    timerStarted: false,
+	    timerPaused: false,
+	    startTimer: false,
+	    stopTimer: false,
+	    pauseTimer: false
+	  };
 	  var action = arguments[1];
 	
 	  switch (action.type) {
 	    case "START_TIMER":
-	      return { startTimer: true, stopTimer: false };
+	      return { startTimer: true };
 	    case "STOP_TIMER":
-	      return { startTimer: false, stopTimer: true };
+	      return { stopTimer: true };
+	    case "PAUSE_TIMER":
+	      return { pauseTimer: true };
 	    case "TIMER_STARTED":
-	      return { timerStarted: true, startTimer: false, stopTimer: false };
+	      return { timerStarted: true, timerPaused: false, startTimer: false };
 	    case "TIMER_STOPPED":
-	      return { timerStarted: false, startTimer: false, stopTimer: false };
+	      return { timerStarted: false, timerPaused: false, stopTimer: false };
+	    case "TIMER_PAUSED":
+	      return { timerStarted: false, timerPaused: true, pauseTimer: false };
 	    default:
 	      return state;
 	  }
@@ -6239,7 +6249,7 @@
 	  return state;
 	};
 	
-	var reducers = (0, _redux.combineReducers)({ time: time, meetingCost: meetingCost, timerRunning: timerRunning });
+	var reducers = (0, _redux.combineReducers)({ time: time, meetingCost: meetingCost, timerRunning: timerRunning, loggingReducer: loggingReducer });
 	
 	exports.default = reducers;
 
@@ -6350,7 +6360,8 @@
 	    var startTimer = _ref.startTimer,
 	        stopTimer = _ref.stopTimer,
 	        timerRunning = _ref.timerRunning,
-	        fieldsValid = _ref.fieldsValid;
+	        fieldsValid = _ref.fieldsValid,
+	        pauseTimer = _ref.pauseTimer;
 	
 	    return _react2.default.createElement(
 	        'div',
@@ -6368,9 +6379,22 @@
 	            'div',
 	            { className: timerRunning ? 'visible' : 'hidden' },
 	            _react2.default.createElement(
-	                'button',
-	                { className: 'btn btn-warning form-control', onClick: stopTimer },
-	                'Stop'
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'button',
+	                    { className: 'btn btn-warning form-control', onClick: pauseTimer },
+	                    'Pause'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'button',
+	                    { className: 'btn btn-danger form-control', onClick: stopTimer },
+	                    'Stop'
+	                )
 	            )
 	        )
 	    );
@@ -6390,6 +6414,9 @@
 	        },
 	        stopTimer: function stopTimer() {
 	            dispatch(_actions.stopTimer);
+	        },
+	        pauseTimer: function pauseTimer() {
+	            dispatch(_actions.pauseTimer);
 	        }
 	    };
 	};
@@ -6436,6 +6463,14 @@
 	
 	var timerStarted = exports.timerStarted = {
 	  type: 'TIMER_STARTED'
+	};
+	
+	var pauseTimer = exports.pauseTimer = {
+	  type: 'PAUSE_TIMER'
+	};
+	
+	var timerPaused = exports.timerPaused = {
+	  type: 'TIMER_PAUSED'
 	};
 	
 	var timerStopped = exports.timerStopped = {
@@ -24065,7 +24100,7 @@
 /* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -24088,12 +24123,12 @@
 	  }
 	
 	  _createClass(StopWatch, [{
-	    key: 'listen',
+	    key: "listen",
 	    value: function listen() {
 	      this.unsubscribe = this.store.subscribe(this._stateupdated.bind(this));
 	    }
 	  }, {
-	    key: '_start',
+	    key: "_start",
 	    value: function _start() {
 	      var _this = this;
 	
@@ -24103,16 +24138,26 @@
 	      this.store.dispatch(_actions.timerStarted);
 	    }
 	  }, {
-	    key: '_stop',
+	    key: "_stop",
 	    value: function _stop() {
 	      clearInterval(this.interval);
 	      this.store.dispatch(_actions.timerStopped);
 	    }
 	  }, {
-	    key: '_stateupdated',
+	    key: "_pause",
+	    value: function _pause() {
+	      console.log("pause");
+	      clearInterval(this.interval);
+	      this.store.dispatch(_actions.timerPaused);
+	    }
+	  }, {
+	    key: "_stateupdated",
 	    value: function _stateupdated() {
 	      if (this.store.getState().timerRunning.startTimer) {
 	        this._start();
+	      }
+	      if (this.store.getState().timerRunning.pauseTimer) {
+	        this._pause();
 	      }
 	
 	      if (this.store.getState().timerRunning.stopTimer) {
@@ -24120,7 +24165,7 @@
 	      }
 	    }
 	  }, {
-	    key: '_publishTicAction',
+	    key: "_publishTicAction",
 	    value: function _publishTicAction() {
 	      this.store.dispatch(_actions.timerTick);
 	    }
