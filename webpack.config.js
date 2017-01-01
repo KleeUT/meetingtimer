@@ -17,13 +17,13 @@ module.exports = {
       }
     ]
   },
-  // plugins:[
-  //   new webpack.optimize.UglifyJsPlugin({minimize:false})
-  // ],
+  plugins:[
+    new webpack.optimize.UglifyJsPlugin({minimize:false})
+  ],
   externals:{
     "$":"$",
-    "jQuery":"jQuery"
-    // "react":"React",
-    // "ReactDOM":"ReactDOM",
+    "jQuery":"jQuery",
+    "react":"React",
+    "react-dom":"ReactDOM",
   }
 };
