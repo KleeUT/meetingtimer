@@ -1,13 +1,27 @@
-export const setAveragePay = (averagePay) => {
+export const setAverageYearlyPay = (averagePay) => {
   return {
-    type: 'SET_AVERAGE_PAY',
+    type: 'SET_AVERAGE_YEARLY_PAY',
     averagePay
   };
 };
 
-export const setNumberOfParticipants = (participants) => {
+export const setNumberOfYearlyParticipants = (participants) => {
   return {
-    type: 'SET_NUMBER_OF_PARTICIPANTS',
+    type: 'SET_NUMBER_OF_YEARLY_PARTICIPANTS',
+    participants
+  };
+};
+
+export const setAverageHourlyPay = (averagePay) => {
+  return {
+    type: 'SET_AVERAGE_HOURLY_PAY',
+    averagePay
+  };
+};
+
+export const setNumberOfHourlyParticipants = (participants) => {
+  return {
+    type: 'SET_NUMBER_OF_HOURLY_PARTICIPANTS',
     participants
   };
 };

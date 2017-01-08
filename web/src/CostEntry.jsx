@@ -1,18 +1,28 @@
-import React, {  PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setAveragePay, setNumberOfParticipants } from './actions/actions';
+import { setAverageYearlyPay, setNumberOfYearlyParticipants, setAverageHourlyPay, setNumberOfHourlyParticipants } from './actions/actions';
 
-const CostEntry = ({averagePay, participants, onAveragePayChanged, onNumberOfParticipantsChanged, timerRunning }) => {
+const CostEntry = ({averagePay, participants, onAveragePayChanged, onNumberOfParticipantsChanged, timerRunning, title}) => {
+  var style = {
+    border: "2px solid",
+    padding: "1em",
+    "padding-top": "0",
+    margin: "0.5em",
+    "border-radius": "5px"
+  }
   return (
-    <div>
-      <div className="form-group">
-        <label htmlFor="costInput">Average Yearly Wage:</label>
-        <input id="costInput" type="number" className="form-control" value={averagePay} onChange={onAveragePayChanged} disabled={timerRunning ? 'disabled' : ''} />
-      </div>
+    <div style={style}>
+      <h2>{title}</h2>
+      <div>
+        <div className="form-group">
+          <label htmlFor="attendeeInput">No. participants:</label>
+          <input id="attendeeInput" type="number" className="form-control" value={participants} onChange={onNumberOfParticipantsChanged} disabled={timerRunning ? 'disabled' : ''} />
+        </div>
 
-      <div className="form-group">
-        <label htmlFor="attendeeInput">Number of meeting participants:</label>
-        <input id="attendeeInput" type="number" className="form-control" value={participants} onChange={onNumberOfParticipantsChanged}   disabled={timerRunning ? 'disabled' : ''} />
+        <div className="form-group">
+          <label htmlFor="costInput">Average Wage:</label>
+          <input id="costInput" type="number" className="form-control" value={averagePay} onChange={onAveragePayChanged} disabled={timerRunning ? 'disabled' : ''} />
+        </div>
       </div>
     </div>
   );
@@ -20,9 +30,44 @@ const CostEntry = ({averagePay, participants, onAveragePayChanged, onNumberOfPar
 
 CostEntry.propTypes = {
   averagePay: PropTypes.number,
-  participants: PropTypes.number, 
+  participants: PropTypes.number,
   onAveragePayChanged: PropTypes.func,
   onNumberOfParticipantsChanged: PropTypes.func,
+  timerRunning: PropTypes.bool,
+  title: PropTypes.String
+}
+
+const MeetingCostEntry = (
+  {
+    yearlyAveragePay,
+    yearlyParticipants,
+    onYearlyAveragePayChanged,
+    onNumberOfYearlyParticipantsChanged,
+    timerRunning}
+) => {
+  return (
+    <div className="row">
+      <div className="col-xs-12 col-sm-2 col-md-3" />
+      <div className="col-xs-12 col-sm-4 col-md-3">
+        <CostEntry title="Yearly" participants={yearlyParticipants} averagePay={yearlyAveragePay} onAveragePayChanged={onYearlyAveragePayChanged} onNumberOfParticipantsChanged={onNumberOfYearlyParticipantsChanged} />
+      </div>
+      <div className="col-xs-12 col-sm-4 col-md-3" >
+        <CostEntry title="Hourly" />
+      </div>
+      <div className="col-xs-12 col-sm-2 col-md-3" />
+    </div>
+    );
+}
+
+MeetingCostEntry.propTypes = {
+  yearlyAveragePay: PropTypes.number,
+  hourlyAveragePay: PropTypes.number,
+  yearlyParticipants: PropTypes.number,
+  hourlyParticipants: PropTypes.number,
+  onYearlyAveragePayChanged: PropTypes.func,
+  onNumberOfYearlyParticipantsChanged: PropTypes.func,
+  onAverageHourlyPayChanged: PropTypes.func,
+  onNumberOfHourlyParticipantsChanged: PropTypes.func,
   timerRunning: PropTypes.bool
 }
 
@@ -36,13 +81,19 @@ var mapStateToProps = (state) => {
 
 var mapDispatchToProps = (dispatch) => {
   return {
-    onAveragePayChanged: (e) => {
-      dispatch(setAveragePay(Number(e.target.value)));
+    onAverageYearlyPayChanged: (e) => {
+      dispatch(setAverageYearlyPay(Number(e.target.value)));
     },
-    onNumberOfParticipantsChanged: (e) => {
+    onNumberOfYearlyParticipantsChanged: (e) => {
       dispatch(setNumberOfParticipants(Number(e.target.value)));
+    },
+    onAverageHourlyPayChanged: (e) => {
+      dispatch(setAverageHourlyPay(Number(e.target.value)));
+    },
+    onNumberOfHourlyParticipantsChanged: (e) => {
+      dispatch(setAverageHourlyPay(Number(e.target.value)));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CostEntry);
+export default connect(mapStateToProps, mapDispatchToProps)(MeetingCostEntry);
