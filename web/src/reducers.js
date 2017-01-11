@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as Actions from './actions/actions.js'
 
-const time = (state = { totalSeconds: 0 }, action) => {
+export const time = (state = { totalSeconds: 0 }, action) => {
   switch (action.type) {
     case Actions.timerTick.type:
       {
@@ -21,24 +21,24 @@ const time = (state = { totalSeconds: 0 }, action) => {
   }
 }
 
-const meetingCost = (state = { averageYearlyPay: 0, yearlyParticipants: 0, averageHourlyPay:0, hourlyParticipants:0, currentCost:0 }, action) => {
+export const meetingCost = (state = { averageYearlyPay: 0, yearlyParticipants: 0, averageHourlyPay:0, hourlyParticipants:0, currentCost:0 }, action) => {
   switch (action.type) {
-    case Actions.setAverageYearlyPay:
+    case Actions.setAverageYearlyPay().type:
       return {
         ...state,
         averageYearlyPay: action.averagePay
       }
-    case Actions.setNumberOfYearlyParticipants.type:
+    case Actions.setNumberOfYearlyParticipants().type:
       return {
         ...state,
         yearlyParticipants: action.participants
       }
-    case Actions.setAverageHourlyPay.type:
+    case Actions.setAverageHourlyPay().type:
       return{
         ...state,
         averageHourlyPay: action.averagePay
       }
-    case Actions.setNumberOfHourlyParticipants.type:
+    case Actions.setNumberOfHourlyParticipants().type:
       return {
         ...state,
         hourlyParticipants: action.participants
@@ -47,7 +47,7 @@ const meetingCost = (state = { averageYearlyPay: 0, yearlyParticipants: 0, avera
   return state;
 }
 
-const timerRunning = (state = {
+export const timerRunning = (state = {
   timerStarted: false,
   timerPaused: false,
   startTimer: false,
@@ -71,7 +71,7 @@ const timerRunning = (state = {
   }
 }
 
-const loggingReducer = (state = "no state", action) => {
+export const loggingReducer = (state = "no state", action) => {
   console.log(action)
   return state;
 }

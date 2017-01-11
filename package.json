@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node ./server/server.js",
-    "test": "mocha .\\test",
+    "test": "mocha ./web/test --require babel-core/register",
+    "test-w": "mocha ./web/test --require babel-core/register -w",
     "build": "webpack --colors --progress",
     "build-w": "webpack -w --colors --progress",
     "lint": "eslint -c .eslintrc.json **/*.jsx",
