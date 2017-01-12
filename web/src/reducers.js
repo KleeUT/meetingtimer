@@ -43,8 +43,27 @@ export const meetingCost = (state = { averageYearlyPay: 0, yearlyParticipants: 0
         ...state,
         hourlyParticipants: action.participants
       }
+    case Actions.timerTick.type : 
+      return{
+        ... state,
+        currentCost: state.currentCost + calculatePerSecondCost(state)
+      }
   }
   return state;
+}
+
+const secondsPerMinute = 60;
+const secondsPerHour = secondsPerMinute * 60;
+const secondsPerDay = secondsPerHour * 8;
+const secondsPerWeek = secondsPerDay * 5;
+const secondsPerYear = secondsPerWeek * 48;
+
+function calculatePerSecondCost(state){
+  let perSecondHourly = state.averageHourlyPay / secondsPerHour;
+  let perSecondYearly = state.averageYearlyPay / secondsPerYear;
+  
+  return (perSecondHourly * state.hourlyParticipants) + 
+            (perSecondYearly * state.yearlyParticipants);
 }
 
 export const timerRunning = (state = {
