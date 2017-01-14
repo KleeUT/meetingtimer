@@ -5,9 +5,9 @@ body{
   font-family: 'Comfortaa', cursive;
   background-image: url('/img/clock.png');
   background-repeat: no-repeat;
-      background-position: right bottom;
+      background-position: center bottom;
     background-attachment: fixed;
-    background-size: 100% 25%; 
+    background-size: 90% 25%; 
 }
 
 .heading{
