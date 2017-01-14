@@ -43,8 +43,21 @@ let mapDispatchToProps = (dispatch) => {
 let mapStateToProps = (state) =>{
     return {
         timerRunning: state.timerRunning.timerStarted,
-        fieldsValid: !!(state.meetingCost.averagePay && state.meetingCost.participants)
+        fieldsValid: hasValidFields(state)
     }
 }
 
+var hasValidFields = (state) => {
+            var y = !!(state.meetingCost.averageYearlyPay && state.meetingCost.yearlyParticipants);
+            var h = !!(state.meetingCost.averageHourlyPay && state.meetingCost.hourlyParticipants)
+
+            console.log(h,y);
+            return y || h;
+        }
+
 export default connect(mapStateToProps, mapDispatchToProps)(ActionButtons);
+
+//   yearlyAveragePay: PropTypes.number,
+//   hourlyAveragePay: PropTypes.number,
+//   yearlyParticipants: PropTypes.number,
+//   hourlyParticipants: PropTypes.number,

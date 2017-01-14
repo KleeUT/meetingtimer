@@ -2,8 +2,11 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 var CostDisplay = ({totalCost, totalSeconds, totalTime, timerRunning}) => {
+  let style = {
+    'background':'rgba(255,255,255,0.7)'
+  }
   return (
-    <div>
+    <div style={style}>
     <div className='costDisplay'>
       ${totalCost}
     </div>
@@ -29,7 +32,7 @@ CostDisplay.propTypes = {
 
 var mapStateToProps = (state) => {
   return {
-    totalCost: "" + totalCostSoFar(state),
+    totalCost: state.meetingCost.currentCost.toFixed(2),
     totalSeconds: state.time.totalSeconds,
     totalTime: formatAsHoursMinutesSeconds(state.time.totalSeconds),
     timerRunning: state.timerRunning.timerStarted

@@ -40,9 +40,13 @@ CostEntry.propTypes = {
 const MeetingCostEntry = (
   {
     yearlyAveragePay,
+    hourlyAveragePay,
     yearlyParticipants,
+    hourlyParticipants,
     onYearlyAveragePayChanged,
+    onHourlyAveragePayChanged,
     onNumberOfYearlyParticipantsChanged,
+    onNumberOfHourlyParticipantsChanged,
     timerRunning}
 ) => {
   return (
@@ -52,11 +56,11 @@ const MeetingCostEntry = (
         <CostEntry title="Yearly" participants={yearlyParticipants} averagePay={yearlyAveragePay} onAveragePayChanged={onYearlyAveragePayChanged} onNumberOfParticipantsChanged={onNumberOfYearlyParticipantsChanged} />
       </div>
       <div className="col-xs-12 col-sm-4 col-md-3" >
-        <CostEntry title="Hourly" />
+        <CostEntry title="Hourly" participants={hourlyParticipants} averagePay={hourlyAveragePay} onAveragePayChanged={onHourlyAveragePayChanged} onNumberOfParticipantsChanged={onNumberOfHourlyParticipantsChanged} />
       </div>
       <div className="col-xs-12 col-sm-2 col-md-3" />
     </div>
-    );
+  );
 }
 
 MeetingCostEntry.propTypes = {
@@ -66,32 +70,34 @@ MeetingCostEntry.propTypes = {
   hourlyParticipants: PropTypes.number,
   onYearlyAveragePayChanged: PropTypes.func,
   onNumberOfYearlyParticipantsChanged: PropTypes.func,
-  onAverageHourlyPayChanged: PropTypes.func,
+  onHourlyAveragePayChanged: PropTypes.func,
   onNumberOfHourlyParticipantsChanged: PropTypes.func,
   timerRunning: PropTypes.bool
 }
 
 var mapStateToProps = (state) => {
   return {
-    averagePay: state.meetingCost.averagePay,
-    participants: state.meetingCost.participants,
+    yearlyAveragePay: state.meetingCost.averageYearlyPay,
+    hourlyAveragePay: state.meetingCost.averageHourlyPay,
+    yearlyParticipants: state.meetingCost.yearlyParticipants,
+    hourlyParticipants: state.meetingCost.hourlyParticipants,
     timerRunning: state.timerRunning.timerStarted
   };
 };
 
 var mapDispatchToProps = (dispatch) => {
   return {
-    onAverageYearlyPayChanged: (e) => {
+    onYearlyAveragePayChanged: (e) => {
       dispatch(setAverageYearlyPay(Number(e.target.value)));
     },
     onNumberOfYearlyParticipantsChanged: (e) => {
-      dispatch(setNumberOfParticipants(Number(e.target.value)));
+      dispatch(setNumberOfYearlyParticipants(Number(e.target.value)));
     },
-    onAverageHourlyPayChanged: (e) => {
+    onHourlyAveragePayChanged: (e) => {
       dispatch(setAverageHourlyPay(Number(e.target.value)));
     },
     onNumberOfHourlyParticipantsChanged: (e) => {
-      dispatch(setAverageHourlyPay(Number(e.target.value)));
+      dispatch(setNumberOfHourlyParticipants(Number(e.target.value)));
     }
   };
 };
