@@ -5,6 +5,8 @@ Well this is the tool for you.
 
 Put in the number of participants and how much they get paid, hit start and watch as the cost goes up. 
 
+I've got it running at [https://mysweet-meeting-timer.herokuapp.com/](https://mysweet-meeting-timer.herokuapp.com/). Give it some time to start up it's running in a free Heroku instance. 
+
 # Build
 `npm install`
 
