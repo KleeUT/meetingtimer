@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "name": "MySweet Meeting Timer",
+  "short_name": "MeetingTimer",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "YOU-NEED-TO-HAVE-A-144-x-144-ICON.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
