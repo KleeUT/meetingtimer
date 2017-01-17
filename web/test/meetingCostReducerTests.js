@@ -34,7 +34,7 @@ describe("meeting cost reducer", () => {
             let output = meetingCost(previousState, actions.timerTick);
             expect(output.currentCost).to.equal(0.1);
         });
-        
+
         it("Just Yearly", () => {
             let events = [
                 actions.setNumberOfYearlyParticipants(5),
