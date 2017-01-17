@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/KleeUT/meetingtimer.svg?branch=master)](https://travis-ci.org/KleeUT/meetingtimer)
 # Meeting Timer
 Ever wonder how much your daily standup costs the company.  Or how much you spend in that weekly team meeting where everyone seems to be on their phones while a middle manager drones on, and on, and on? 
 
