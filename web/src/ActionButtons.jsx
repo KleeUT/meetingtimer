@@ -12,7 +12,7 @@ const ActionButtons = ({startTimer, stopTimer, timerRunning, fieldsValid, pauseT
                     <button className="btn btn-warning form-control" onClick={pauseTimer}>Pause</button>    
                 </div>
                 <div className="form-group">
-                    <button className="btn btn-danger form-control" onClick={stopTimer}>Stop</button>        
+                    <button className="btn btn-danger form-control" onClick={stopTimer}>Stop/Reset</button>        
                 </div>
             </div>
         </div>
