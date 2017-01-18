@@ -61,6 +61,21 @@ describe("meeting cost reducer", () => {
             expect(output.currentCost).to.equal(0.13616898148148148);
         })
     });
+
+    it("should set total cost to zero when stopped", () => {
+        let events = [
+            actions.setNumberOfYearlyParticipants(5),
+            actions.setAverageYearlyPay(50000),
+            actions.setNumberOfHourlyParticipants(1),
+            actions.setAverageHourlyPay(360),
+            actions.timerTick
+        ];
+
+        let previousState = givenEventsProcessed(events);
+
+        let output = meetingCost(previousState, actions.timerStopped);
+        expect(output.currentCost).to.equal(0);
+    });
 });
 
 function givenEventsProcessed(events) {

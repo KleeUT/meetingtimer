@@ -48,6 +48,11 @@ export const meetingCost = (state = { averageYearlyPay: 0, yearlyParticipants: 0
         ... state,
         currentCost: state.currentCost + calculatePerSecondCost(state)
       }
+    case Actions.timerStopped.type:
+      return {
+        ... state, 
+        currentCost: 0
+      }
   }
   return state;
 }
