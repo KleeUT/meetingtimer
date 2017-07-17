@@ -13,8 +13,8 @@ const stopWatch = new StopWatch(store);
 stopWatch.listen();
 
 ReactDOM.render(
-    <Provider store={store}>
-      <ContainerView />
-    </Provider>,
-    document.getElementById('main')
+  <Provider store={store}>
+    <ContainerView />
+  </Provider>,
+  document.getElementById('main')
 );
