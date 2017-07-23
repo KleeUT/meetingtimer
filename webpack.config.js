@@ -14,7 +14,7 @@ module.exports = {
     ]
   },
   plugins:[
-    new webpack.optimize.UglifyJsPlugin({minimize:false})
+    // new webpack.optimize.UglifyJsPlugin({minimize:false})
   ],
   externals:{
     '$':'$',

@@ -115,11 +115,11 @@ export const loggingReducer = (state = 'no state', action) => {
   return state;
 };
 
-let reducers = combineReducers({
+let reducers = {
   time,
   meetingCost,
   timerRunning,
   loggingReducer
-});
+};
 
 export default reducers;
