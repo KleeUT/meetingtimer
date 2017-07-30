@@ -53,3 +53,14 @@ export const timerStopped = {
 export const timerTick = {
   type: 'TIMER_TICK'
 };
+
+export const calculate = {
+  type: 'CALCULATE'
+};
+
+export const setCalculatorTime = value => {
+  return {
+    type: 'SET_CALCULATOR_TIME',
+    value
+  };
+};

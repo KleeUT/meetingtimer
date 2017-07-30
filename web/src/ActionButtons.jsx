@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
-import { PropTypes } from 'react';
+import React from 'react';
+import { PropTypes } from 'prop-types';
 import { startTimer, stopTimer, pauseTimer } from './actions/actions';
+
 const ActionButtons = ({
   startTimer,
   stopTimer,
@@ -11,13 +13,15 @@ const ActionButtons = ({
   return (
     <div className="row">
       <div className={timerRunning ? 'hidden' : 'visible'}>
-        <button
-          className="btn btn-primary form-control"
-          onClick={startTimer}
-          disabled={fieldsValid ? '' : 'disabled'}
-        >
-          Start
-        </button>
+        <div className="form-group">
+          <button
+            className="btn btn-primary form-control"
+            onClick={startTimer}
+            disabled={fieldsValid ? '' : 'disabled'}
+          >
+            Start
+          </button>
+        </div>
       </div>
       <div className={timerRunning ? 'visible' : 'hidden'}>
         <div className="form-group">
@@ -38,6 +42,7 @@ const ActionButtons = ({
 ActionButtons.propTypes = {
   startTimer: PropTypes.func,
   stopTimer: PropTypes.func,
+  pauseTimer: PropTypes.func,
   timerRunning: PropTypes.bool,
   fieldsValid: PropTypes.bool
 };
@@ -72,8 +77,3 @@ var hasValidFields = state => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActionButtons);
-
-//   yearlyAveragePay: PropTypes.number,
-//   hourlyAveragePay: PropTypes.number,
-//   yearlyParticipants: PropTypes.number,
-//   hourlyParticipants: PropTypes.number,

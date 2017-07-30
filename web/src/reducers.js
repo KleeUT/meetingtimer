@@ -1,6 +1,5 @@
-import { combineReducers } from 'redux';
 import * as Actions from './actions/actions.js';
-
+import { createLogger } from './util/WrapConsole';
 export const time = (state = { totalSeconds: 0 }, action) => {
   switch (action.type) {
   case Actions.timerTick.type: {
@@ -110,8 +109,31 @@ export const timerRunning = (
   }
 };
 
+export const calculator = (state = { enteredTime: '' }, action) => {
+  switch (action.type) {
+  case Actions.setCalculatorTime().type:
+    return {
+      ...state,
+      enteredTime: action.value,
+      enteredTimeIsValid: validateEnteredTime(action.value)
+    };
+  case Actions.calculate.type:
+    return {
+      ...state,
+      cost: validateEnteredTime(state.enteredTime) ? 1234 : 0
+    };
+  default:
+    return state;
+  }
+};
+
+const validateEnteredTime = timeString => {
+  return timeString.match(/(\d*h)? ?(\d*m)?/); // must be in 123h 456m format
+};
+
+const actionLogger = createLogger('Action Logger');
 export const loggingReducer = (state = 'no state', action) => {
-  console.log(action);
+  actionLogger.debug(action);
   return state;
 };
 
@@ -119,7 +141,8 @@ let reducers = {
   time,
   meetingCost,
   timerRunning,
-  loggingReducer
+  loggingReducer,
+  calculator
 };
 
 export default reducers;

@@ -1,4 +1,5 @@
-import { PropTypes } from 'react';
+import React from 'react';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 
 var CostDisplay = ({ totalCost, totalTime, timerRunning }) => {
@@ -42,20 +43,6 @@ var mapDispatchToProps = () => {
 
 const secondsPerMinute = 60;
 const secondsPerHour = secondsPerMinute * 60;
-const secondsPerDay = secondsPerHour * 8;
-const secondsPerWeek = secondsPerDay * 5;
-const secondsPerYear = secondsPerWeek * 48;
-
-function totalCostSoFar(state) {
-  return (calculateCostPerSecond(
-    state.meetingCost.averagePay,
-    state.meetingCost.participants
-  ) * state.time.totalSeconds).toFixed(2);
-}
-
-function calculateCostPerSecond(averageWage, participants) {
-  return averageWage / secondsPerYear * participants;
-}
 
 function formatAsHoursMinutesSeconds(totalSeconds) {
   let hours = Math.floor(totalSeconds / secondsPerHour);

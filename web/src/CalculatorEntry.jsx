@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
-import { PropTypes } from 'react';
-import { startTimer, stopTimer, pauseTimer } from './actions/actions';
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import { calculate, setCalculatorTime } from './actions/actions';
 
-const CalculatorEntry = ({ calculatorTimeChange, doCalculation }) => {
+const CalculatorEntry = ({ calculatorTimeChange, calculate, fieldsValid }) => {
   return (
     <div className="row">
       <div className="form-group">
-        <label for="calculatorInput" value="Total meeting time" />
+        <label htmlFor="calculatorInput" value="Total meeting time" />
         <input
           id="calculatorInput"
           type="text"
@@ -18,7 +19,8 @@ const CalculatorEntry = ({ calculatorTimeChange, doCalculation }) => {
       <div className="form-group">
         <button
           className="btn btn-primary form-control"
-          onClick={doCalculation}
+          onClick={calculate}
+          disabled={fieldsValid ? '' : 'disabled'}
         >
           Calculate
         </button>
@@ -29,25 +31,36 @@ const CalculatorEntry = ({ calculatorTimeChange, doCalculation }) => {
 
 CalculatorEntry.propTypes = {
   calculate: PropTypes.func,
-  setCalculatorTime: PropTypes.func,
-  calculatorTime: PropTypes.string
+  calculatorTimeChange: PropTypes.func,
+  calculatorTime: PropTypes.string,
+  fieldsValid: PropTypes.bool
 };
 
 let mapDispatchToProps = dispatch => {
   return {
-    calculatorTimeChange: (e) => {
-      console.log(e);
+    calculatorTimeChange: e => {
+      dispatch(setCalculatorTime(e.target.value));
     },
     doCalculation: () => {
-      console.log('do the calcultion now');
+      dispatch(calculate);
     }
   };
+};
+
+var hasValidInputFields = state => {
+  var y = !!(state.meetingCost.averageYearlyPay &&
+    state.meetingCost.yearlyParticipants);
+  var h = !!(state.meetingCost.averageHourlyPay &&
+    state.meetingCost.hourlyParticipants);
+  var c = !!state.calculatorEntry.time;
+  return y || h || c;
 };
 
 let mapStateToProps = state => {
   return {
     calculatorTime: 'hours and minutes', //state.calculatorEntry.value,
-    calculatorInputValid: true // state.calculatorEntry.isValid
+    calculatorInputValid: true, // state.calculatorEntry.isValid
+    fieldsValid: hasValidInputFields(state)
   };
 };
 

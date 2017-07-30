@@ -449,6 +449,17 @@ var timerTick = exports.timerTick = {
   type: 'TIMER_TICK'
 };
 
+var calculate = exports.calculate = {
+  type: 'CALCULATE'
+};
+
+var setCalculatorTime = exports.setCalculatorTime = function setCalculatorTime(time) {
+  return {
+    type: 'SET_CALCULATOR_TIME',
+    time: time
+  };
+};
+
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -4312,7 +4323,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loggingReducer = exports.timerRunning = exports.meetingCost = exports.time = undefined;
+exports.loggingReducer = exports.calculatorEntry = exports.timerRunning = exports.meetingCost = exports.time = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -4427,6 +4438,17 @@ var timerRunning = exports.timerRunning = function timerRunning() {
   }
 };
 
+var calculatorEntry = exports.calculatorEntry = function calculatorEntry() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { time: '' };
+  var action = arguments[1];
+
+  switch (action.type) {
+    case Actions.setCalculatorTime().type:
+      return _extends({}, state, { time: action.time });
+  }
+  return state;
+};
+
 var loggingReducer = exports.loggingReducer = function loggingReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'no state';
   var action = arguments[1];
@@ -4439,7 +4461,8 @@ var reducers = {
   time: time,
   meetingCost: meetingCost,
   timerRunning: timerRunning,
-  loggingReducer: loggingReducer
+  loggingReducer: loggingReducer,
+  calculatorEntry: calculatorEntry
 };
 
 exports.default = reducers;
@@ -4610,13 +4633,17 @@ var ActionButtons = function ActionButtons(_ref) {
       'div',
       { className: timerRunning ? 'hidden' : 'visible' },
       React.createElement(
-        'button',
-        {
-          className: 'btn btn-primary form-control',
-          onClick: startTimer,
-          disabled: fieldsValid ? '' : 'disabled'
-        },
-        'Start'
+        'div',
+        { className: 'form-group' },
+        React.createElement(
+          'button',
+          {
+            className: 'btn btn-primary form-control',
+            onClick: startTimer,
+            disabled: fieldsValid ? '' : 'disabled'
+          },
+          'Start'
+        )
       )
     ),
     React.createElement(
@@ -4704,7 +4731,8 @@ var _actions = __webpack_require__(5);
 
 var CalculatorEntry = function CalculatorEntry(_ref) {
   var calculatorTimeChange = _ref.calculatorTimeChange,
-      doCalculation = _ref.doCalculation;
+      doCalculation = _ref.doCalculation,
+      fieldsValid = _ref.fieldsValid;
 
   return React.createElement(
     'div',
@@ -4728,7 +4756,8 @@ var CalculatorEntry = function CalculatorEntry(_ref) {
         'button',
         {
           className: 'btn btn-primary form-control',
-          onClick: doCalculation
+          onClick: doCalculation,
+          disabled: fieldsValid ? '' : 'disabled'
         },
         'Calculate'
       )
@@ -4739,13 +4768,14 @@ var CalculatorEntry = function CalculatorEntry(_ref) {
 CalculatorEntry.propTypes = {
   calculate: _react.PropTypes.func,
   setCalculatorTime: _react.PropTypes.func,
-  calculatorTime: _react.PropTypes.string
+  calculatorTime: _react.PropTypes.string,
+  fieldsValid: _react.PropTypes.bool
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     calculatorTimeChange: function calculatorTimeChange(e) {
-      console.log(e);
+      dispatch((0, _actions.setCalculatorTime)(e.target.value));
     },
     doCalculation: function doCalculation() {
       console.log('do the calcultion now');
@@ -4753,10 +4783,18 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
+var hasValidInputFields = function hasValidInputFields(state) {
+  var y = !!(state.meetingCost.averageYearlyPay && state.meetingCost.yearlyParticipants);
+  var h = !!(state.meetingCost.averageHourlyPay && state.meetingCost.hourlyParticipants);
+  var c = !!state.calculatorEntry.time;
+  return y || h;
+};
+
 var mapStateToProps = function mapStateToProps(state) {
   return {
     calculatorTime: 'hours and minutes', //state.calculatorEntry.value,
-    calculatorInputValid: true // state.calculatorEntry.isValid
+    calculatorInputValid: true, // state.calculatorEntry.isValid
+    fieldsValid: hasValidInputFields(state)
   };
 };
 
@@ -6451,7 +6489,7 @@ var StopWatch = function () {
   _createClass(StopWatch, [{
     key: 'listen',
     value: function listen() {
-      // this.unsubscribe = this.store.subscribe(this._stateupdated.bind(this));
+      this.unsubscribe = this.store.subscribe(this._stateupdated.bind(this));
     }
   }, {
     key: '_start',

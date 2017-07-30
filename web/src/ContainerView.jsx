@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { PropTypes } from 'prop-types';
 import ActionButtons from './ActionButtons.jsx';
 import CalculatorEntry from './CalculatorEntry.jsx';
 import CostEntry from './CostEntry.jsx';
@@ -49,7 +50,7 @@ const ContainerView = ({
 };
 
 ContainerView.contextTypes = {
-  store: React.PropTypes.object
+  store: PropTypes.object
 };
 
 ContainerView.propTypes = {

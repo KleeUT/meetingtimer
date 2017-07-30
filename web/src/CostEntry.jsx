@@ -1,4 +1,5 @@
-import { PropTypes } from 'react';
+import React from 'react';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import {
   setAverageYearlyPay,
@@ -71,8 +72,7 @@ const MeetingCostEntry = ({
   onYearlyAveragePayChanged,
   onHourlyAveragePayChanged,
   onNumberOfYearlyParticipantsChanged,
-  onNumberOfHourlyParticipantsChanged,
-  timerRunning
+  onNumberOfHourlyParticipantsChanged
 }) => {
   return (
     <div className="row">
@@ -109,7 +109,6 @@ MeetingCostEntry.propTypes = {
   onNumberOfYearlyParticipantsChanged: PropTypes.func,
   onHourlyAveragePayChanged: PropTypes.func,
   onNumberOfHourlyParticipantsChanged: PropTypes.func,
-  timerRunning: PropTypes.bool
 };
 
 var mapStateToProps = state => {

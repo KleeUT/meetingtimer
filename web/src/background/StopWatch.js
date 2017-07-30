@@ -14,7 +14,7 @@ export default class StopWatch {
   }
 
   listen() {
-    // this.unsubscribe = this.store.subscribe(this._stateupdated.bind(this));
+    this.unsubscribe = this.store.subscribe(this._stateupdated.bind(this));
   }
 
   _start() {
