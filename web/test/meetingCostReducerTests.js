@@ -1,7 +1,7 @@
 import { meetingCost } from '../src/reducers.js';
 import * as actions from '../src/actions/actions';
 import { expect } from 'chai';
-describe('meeting cost reducer', () => {
+describe('Meeting cost reducer: ', () => {
   it('should update yearly paid participants', () => {
     let output = meetingCost({}, actions.setNumberOfYearlyParticipants(25));
     expect(output.yearlyParticipants).to.equal(25);

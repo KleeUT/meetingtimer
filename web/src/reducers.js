@@ -26,7 +26,11 @@ export const meetingCost = (
     yearlyParticipants: 0,
     averageHourlyPay: 0,
     hourlyParticipants: 0,
-    currentCost: 0
+    currentCost: 0,
+    calculator: {
+      enteredTime: '',
+      enteredTimeIsValid: false
+    }
   },
   action
 ) => {
@@ -61,9 +65,52 @@ export const meetingCost = (
       ...state,
       currentCost: 0
     };
+  case Actions.setCalculatorTime().type:
+    return {
+      ...state,
+      calculator: {
+        enteredTime: action.value,
+        enteredTimeIsValid: validateEnteredTime(action.value)
+      }
+    };
+  case Actions.calculate.type:
+    return {
+      ...state,
+      currentCost: validateEnteredTime(state.calculator.enteredTime)
+        ? calculateCost(state)
+        : 0
+    };
   }
   return state;
 };
+
+function calculateCost(state) {
+  if (!state.calculator.enteredTimeIsValid) {
+    return state;
+  }
+
+  const hoursAndMinutes = extractTimeComponentsFromString(
+    state.calculator.enteredTime
+  );
+
+  const costPerSecond = calculatePerSecondCost(state);
+  const hoursCost = hoursAndMinutes.hours
+    ? hoursAndMinutes.hours * secondsPerHour * costPerSecond
+    : 0;
+  const minutesCost = hoursAndMinutes.minutes
+    ? hoursAndMinutes.minutes * secondsPerMinute * costPerSecond
+    : 0;
+  return hoursCost + minutesCost;
+}
+
+function extractTimeComponentsFromString(timeString) {
+  const hours = findHoursComponent(timeString);
+  const minutes = findMinutesComponent(timeString);
+  return {
+    hours: hours ? Number(hours) : 0,
+    minutes: minutes ? Number(minutes) : 0
+  };
+}
 
 const secondsPerMinute = 60;
 const secondsPerHour = secondsPerMinute * 60;
@@ -109,26 +156,27 @@ export const timerRunning = (
   }
 };
 
-export const calculator = (state = { enteredTime: '' }, action) => {
-  switch (action.type) {
-  case Actions.setCalculatorTime().type:
-    return {
-      ...state,
-      enteredTime: action.value,
-      enteredTimeIsValid: validateEnteredTime(action.value)
-    };
-  case Actions.calculate.type:
-    return {
-      ...state,
-      cost: validateEnteredTime(state.enteredTime) ? 1234 : 0
-    };
-  default:
-    return state;
+const validateEnteredTime = timeString => {
+  if (!timeString) {
+    return false;
   }
+
+  const garunteeString = `${timeString}`;
+  const hours = findHoursComponent(garunteeString);
+  const minutes = findMinutesComponent(garunteeString);
+  return rebuildStringToOriginalFormat(hours, minutes) === timeString;
 };
 
-const validateEnteredTime = timeString => {
-  return timeString.match(/(\d*h)? ?(\d*m)?/); // must be in 123h 456m format
+const rebuildStringToOriginalFormat = (hours, minutes) =>
+  `${hours ? `${hours}h` : ''}${hours && minutes ? ' ' : ''}${minutes ? `${minutes}m` : ''}`;
+const findHoursComponent = timeString => {
+  const matches = timeString.match(/(\d*\d)h/);
+  return matches ? matches[1] : undefined;
+};
+
+const findMinutesComponent = timeString => {
+  const matches = timeString.match(/(\d*\d)m/);
+  return matches ? matches[1] : undefined;
 };
 
 const actionLogger = createLogger('Action Logger');
@@ -141,8 +189,7 @@ let reducers = {
   time,
   meetingCost,
   timerRunning,
-  loggingReducer,
-  calculator
+  loggingReducer
 };
 
 export default reducers;

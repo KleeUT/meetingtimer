@@ -13,6 +13,7 @@
     "test-w": "mocha ./web/test --require babel-core/register -w",
     "build": "webpack --colors --progress",
     "build-w": "webpack -w --colors --progress",
+    "dev-server": "webpack-dev-server --open",
     "lint": "eslint  web/**/*",
     "ilint": "eslint --init"
   },
@@ -46,6 +47,7 @@
     "react-redux": "^5.0.5",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
-    "webpack": "^3.3.0"
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.6.1"
   }
 }

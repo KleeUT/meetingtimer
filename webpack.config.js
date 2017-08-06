@@ -9,17 +9,20 @@ module.exports = {
       {
         test: /.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       }
     ]
   },
-  plugins:[
+  plugins: [
     // new webpack.optimize.UglifyJsPlugin({minimize:false})
   ],
-  externals:{
-    '$':'$',
-    'jQuery':'jQuery',
-    'react':'React',
-    'react-dom':'ReactDOM',
+  externals: {
+    $: '$',
+    jQuery: 'jQuery',
+    react: 'React',
+    'react-dom': 'ReactDOM'
+  },
+  devServer: {
+    contentBase: './server/public'
   }
 };
