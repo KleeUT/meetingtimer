@@ -1,25 +1,25 @@
-export const setAverageYearlyPay = (averagePay) => {
+export const setAverageYearlyPay = averagePay => {
   return {
     type: 'SET_AVERAGE_YEARLY_PAY',
     averagePay
   };
 };
 
-export const setNumberOfYearlyParticipants = (participants) => {
+export const setNumberOfYearlyParticipants = participants => {
   return {
     type: 'SET_NUMBER_OF_YEARLY_PARTICIPANTS',
     participants
   };
 };
 
-export const setAverageHourlyPay = (averagePay) => {
+export const setAverageHourlyPay = averagePay => {
   return {
     type: 'SET_AVERAGE_HOURLY_PAY',
     averagePay
   };
 };
 
-export const setNumberOfHourlyParticipants = (participants) => {
+export const setNumberOfHourlyParticipants = participants => {
   return {
     type: 'SET_NUMBER_OF_HOURLY_PARTICIPANTS',
     participants
@@ -40,11 +40,19 @@ export const timerStarted = {
 
 export const pauseTimer = {
   type: 'PAUSE_TIMER'
-}
+};
 
 export const timerPaused = {
   type: 'TIMER_PAUSED'
-}
+};
+
+export const timerResumed = {
+  type: 'TIMER_RESUMED'
+};
+
+export const resumeTimer = {
+  type: 'RESUME_TIMER'
+};
 
 export const timerStopped = {
   type: 'TIMER_STOPPED'
@@ -52,4 +60,15 @@ export const timerStopped = {
 
 export const timerTick = {
   type: 'TIMER_TICK'
+};
+
+export const calculate = {
+  type: 'CALCULATE'
+};
+
+export const setCalculatorTime = value => {
+  return {
+    type: 'SET_CALCULATOR_TIME',
+    value
+  };
 };
