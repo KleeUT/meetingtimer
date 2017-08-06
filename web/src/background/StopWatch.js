@@ -2,7 +2,9 @@ import {
   timerTick,
   timerStopped,
   timerStarted,
-  timerPaused
+  timerPaused,
+  resumeTimer,
+  timerResumed
 } from '../actions/actions.js';
 
 export default class StopWatch {
@@ -24,7 +26,6 @@ export default class StopWatch {
     this.store.dispatch(timerStarted);
   }
 
-
   _stop() {
     clearInterval(this.interval);
     this.store.dispatch(timerStopped);
@@ -35,16 +36,28 @@ export default class StopWatch {
     this.store.dispatch(timerPaused);
   }
 
+  _resume() {
+    this.interval = setInterval(() => {
+      this.store.dispatch(timerTick);
+    }, this.everySecond);
+    this.store.dispatch(timerResumed);
+  }
+
   _stateupdated() {
     if (this.store.getState().timerRunning.startTimer) {
       this._start();
     }
+
     if (this.store.getState().timerRunning.pauseTimer) {
       this._pause();
     }
 
     if (this.store.getState().timerRunning.stopTimer) {
       this._stop();
+    }
+
+    if (this.store.getState().timerRunning.resumeTimer) {
+      this._resume();
     }
   }
 

@@ -320,6 +320,91 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var setAverageYearlyPay = exports.setAverageYearlyPay = function setAverageYearlyPay(averagePay) {
+  return {
+    type: 'SET_AVERAGE_YEARLY_PAY',
+    averagePay: averagePay
+  };
+};
+
+var setNumberOfYearlyParticipants = exports.setNumberOfYearlyParticipants = function setNumberOfYearlyParticipants(participants) {
+  return {
+    type: 'SET_NUMBER_OF_YEARLY_PARTICIPANTS',
+    participants: participants
+  };
+};
+
+var setAverageHourlyPay = exports.setAverageHourlyPay = function setAverageHourlyPay(averagePay) {
+  return {
+    type: 'SET_AVERAGE_HOURLY_PAY',
+    averagePay: averagePay
+  };
+};
+
+var setNumberOfHourlyParticipants = exports.setNumberOfHourlyParticipants = function setNumberOfHourlyParticipants(participants) {
+  return {
+    type: 'SET_NUMBER_OF_HOURLY_PARTICIPANTS',
+    participants: participants
+  };
+};
+
+var stopTimer = exports.stopTimer = {
+  type: 'STOP_TIMER'
+};
+
+var startTimer = exports.startTimer = {
+  type: 'START_TIMER'
+};
+
+var timerStarted = exports.timerStarted = {
+  type: 'TIMER_STARTED'
+};
+
+var pauseTimer = exports.pauseTimer = {
+  type: 'PAUSE_TIMER'
+};
+
+var timerPaused = exports.timerPaused = {
+  type: 'TIMER_PAUSED'
+};
+
+var timerResumed = exports.timerResumed = {
+  type: 'TIMER_RESUMED'
+};
+
+var resumeTimer = exports.resumeTimer = {
+  type: 'RESUME_TIMER'
+};
+
+var timerStopped = exports.timerStopped = {
+  type: 'TIMER_STOPPED'
+};
+
+var timerTick = exports.timerTick = {
+  type: 'TIMER_TICK'
+};
+
+var calculate = exports.calculate = {
+  type: 'CALCULATE'
+};
+
+var setCalculatorTime = exports.setCalculatorTime = function setCalculatorTime(value) {
+  return {
+    type: 'SET_CALCULATOR_TIME',
+    value: value
+  };
+};
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -382,83 +467,6 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var setAverageYearlyPay = exports.setAverageYearlyPay = function setAverageYearlyPay(averagePay) {
-  return {
-    type: 'SET_AVERAGE_YEARLY_PAY',
-    averagePay: averagePay
-  };
-};
-
-var setNumberOfYearlyParticipants = exports.setNumberOfYearlyParticipants = function setNumberOfYearlyParticipants(participants) {
-  return {
-    type: 'SET_NUMBER_OF_YEARLY_PARTICIPANTS',
-    participants: participants
-  };
-};
-
-var setAverageHourlyPay = exports.setAverageHourlyPay = function setAverageHourlyPay(averagePay) {
-  return {
-    type: 'SET_AVERAGE_HOURLY_PAY',
-    averagePay: averagePay
-  };
-};
-
-var setNumberOfHourlyParticipants = exports.setNumberOfHourlyParticipants = function setNumberOfHourlyParticipants(participants) {
-  return {
-    type: 'SET_NUMBER_OF_HOURLY_PARTICIPANTS',
-    participants: participants
-  };
-};
-
-var stopTimer = exports.stopTimer = {
-  type: 'STOP_TIMER'
-};
-
-var startTimer = exports.startTimer = {
-  type: 'START_TIMER'
-};
-
-var timerStarted = exports.timerStarted = {
-  type: 'TIMER_STARTED'
-};
-
-var pauseTimer = exports.pauseTimer = {
-  type: 'PAUSE_TIMER'
-};
-
-var timerPaused = exports.timerPaused = {
-  type: 'TIMER_PAUSED'
-};
-
-var timerStopped = exports.timerStopped = {
-  type: 'TIMER_STOPPED'
-};
-
-var timerTick = exports.timerTick = {
-  type: 'TIMER_TICK'
-};
-
-var calculate = exports.calculate = {
-  type: 'CALCULATE'
-};
-
-var setCalculatorTime = exports.setCalculatorTime = function setCalculatorTime(value) {
-  return {
-    type: 'SET_CALCULATOR_TIME',
-    value: value
-  };
-};
 
 /***/ }),
 /* 6 */
@@ -861,7 +869,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
@@ -2084,7 +2092,7 @@ var locationsAreEqual = exports.locationsAreEqual = function locationsAreEqual(a
 
 exports.__esModule = true;
 
-var _warning = __webpack_require__(4);
+var _warning = __webpack_require__(5);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -2171,7 +2179,7 @@ exports.default = createTransitionManager;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
@@ -4325,7 +4333,7 @@ exports.loggingReducer = exports.timerRunning = exports.meetingCost = exports.ti
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _actions = __webpack_require__(5);
+var _actions = __webpack_require__(4);
 
 var Actions = _interopRequireWildcard(_actions);
 
@@ -4391,7 +4399,7 @@ var meetingCost = exports.meetingCost = function meetingCost() {
       return _extends({}, state, {
         currentCost: state.currentCost + calculatePerSecondCost(state)
       });
-    case Actions.timerStopped.type:
+    case Actions.timerStarted.type:
       return _extends({}, state, {
         currentCost: 0
       });
@@ -4451,23 +4459,48 @@ var timerRunning = exports.timerRunning = function timerRunning() {
     timerPaused: false,
     startTimer: false,
     stopTimer: false,
-    pauseTimer: false
+    pauseTimer: false,
+    resumeTimer: false
   };
   var action = arguments[1];
 
   switch (action.type) {
     case Actions.startTimer.type:
-      return { startTimer: true };
+      return _extends({}, state, { startTimer: true });
     case Actions.stopTimer.type:
-      return { stopTimer: true };
+      return _extends({}, state, { stopTimer: true });
     case Actions.pauseTimer.type:
-      return { pauseTimer: true };
+      return _extends({}, state, { pauseTimer: true });
+    case Actions.resumeTimer.type:
+      return _extends({}, state, { resumeTimer: true });
     case Actions.timerStarted.type:
-      return { timerStarted: true, timerPaused: false, startTimer: false };
+      return _extends({}, state, {
+        timerStarted: true,
+        timerPaused: false,
+        startTimer: false,
+        resumeTimer: false
+      });
     case Actions.timerStopped.type:
-      return { timerStarted: false, timerPaused: false, stopTimer: false };
+      return _extends({}, state, {
+        timerStarted: false,
+        timerPaused: false,
+        stopTimer: false,
+        resumeTimer: false
+      });
     case Actions.timerPaused.type:
-      return { timerStarted: false, timerPaused: true, pauseTimer: false };
+      return _extends({}, state, {
+        timerStarted: false,
+        timerPaused: true,
+        pauseTimer: false,
+        resumeTimer: false
+      });
+    case Actions.timerResumed.type:
+      return _extends({}, state, {
+        timerStarted: true,
+        timerPaused: false,
+        timerStopped: false,
+        resumeTimer: false
+      });
     default:
       return state;
   }
@@ -4506,14 +4539,12 @@ var loggingReducer = exports.loggingReducer = function loggingReducer() {
   return state;
 };
 
-var reducers = {
+exports.default = {
   time: time,
   meetingCost: meetingCost,
   timerRunning: timerRunning,
   loggingReducer: loggingReducer
 };
-
-exports.default = reducers;
 
 /***/ }),
 /* 63 */
@@ -4596,6 +4627,8 @@ var _reactRouter = __webpack_require__(13);
 var _reactRouterRedux = __webpack_require__(31);
 
 var _reactRedux = __webpack_require__(3);
+
+var _actions = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4681,6 +4714,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       dispatch((0, _reactRouterRedux.push)('/'));
     },
     showCalculatorInput: function showCalculatorInput() {
+      dispatch(_actions.stopTimer);
       dispatch((0, _reactRouterRedux.push)('/calculator'));
     }
   };
@@ -4714,7 +4748,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _propTypes = __webpack_require__(1);
 
-var _actions = __webpack_require__(5);
+var _actions = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4722,8 +4756,10 @@ var ActionButtons = function ActionButtons(_ref) {
   var startTimer = _ref.startTimer,
       stopTimer = _ref.stopTimer,
       timerRunning = _ref.timerRunning,
+      timerPaused = _ref.timerPaused,
       fieldsValid = _ref.fieldsValid,
-      pauseTimer = _ref.pauseTimer;
+      pauseTimer = _ref.pauseTimer,
+      resumeTimer = _ref.resumeTimer;
 
   return _react2.default.createElement(
     'div',
@@ -4738,10 +4774,10 @@ var ActionButtons = function ActionButtons(_ref) {
           'button',
           {
             className: 'btn btn-primary form-control',
-            onClick: startTimer,
+            onClick: timerPaused ? resumeTimer : startTimer,
             disabled: fieldsValid ? '' : 'disabled'
           },
-          'Start'
+          timerPaused ? 'Resume' : 'Start'
         )
       )
     ),
@@ -4763,7 +4799,7 @@ var ActionButtons = function ActionButtons(_ref) {
         _react2.default.createElement(
           'button',
           { className: 'btn btn-danger form-control', onClick: stopTimer },
-          'Stop/Reset'
+          'Stop'
         )
       )
     )
@@ -4774,7 +4810,9 @@ ActionButtons.propTypes = {
   startTimer: _propTypes.PropTypes.func,
   stopTimer: _propTypes.PropTypes.func,
   pauseTimer: _propTypes.PropTypes.func,
+  resumeTimer: _propTypes.PropTypes.func,
   timerRunning: _propTypes.PropTypes.bool,
+  timerPaused: _propTypes.PropTypes.bool,
   fieldsValid: _propTypes.PropTypes.bool
 };
 
@@ -4788,6 +4826,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     pauseTimer: function pauseTimer() {
       dispatch(_actions.pauseTimer);
+    },
+    resumeTimer: function resumeTimer() {
+      dispatch(_actions.resumeTimer);
     }
   };
 };
@@ -4795,6 +4836,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     timerRunning: state.timerRunning.timerStarted,
+    timerPaused: state.timerRunning.timerPaused,
     fieldsValid: hasValidFields(state)
   };
 };
@@ -4826,7 +4868,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _propTypes = __webpack_require__(1);
 
-var _actions = __webpack_require__(5);
+var _actions = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4926,7 +4968,7 @@ var _propTypes = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(3);
 
-var _actions = __webpack_require__(5);
+var _actions = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5245,7 +5287,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(4);
+var _warning = __webpack_require__(5);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -6328,7 +6370,7 @@ StaticRouter.childContextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__matchPath__ = __webpack_require__(15);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6578,7 +6620,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _actions = __webpack_require__(5);
+var _actions = __webpack_require__(4);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6620,17 +6662,32 @@ var StopWatch = function () {
       this.store.dispatch(_actions.timerPaused);
     }
   }, {
+    key: '_resume',
+    value: function _resume() {
+      var _this2 = this;
+
+      this.interval = setInterval(function () {
+        _this2.store.dispatch(_actions.timerTick);
+      }, this.everySecond);
+      this.store.dispatch(_actions.timerResumed);
+    }
+  }, {
     key: '_stateupdated',
     value: function _stateupdated() {
       if (this.store.getState().timerRunning.startTimer) {
         this._start();
       }
+
       if (this.store.getState().timerRunning.pauseTimer) {
         this._pause();
       }
 
       if (this.store.getState().timerRunning.stopTimer) {
         this._stop();
+      }
+
+      if (this.store.getState().timerRunning.resumeTimer) {
+        this._resume();
       }
     }
   }, {
@@ -6658,7 +6715,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _warning = __webpack_require__(4);
+var _warning = __webpack_require__(5);
 
 var _warning2 = _interopRequireDefault(_warning);
 

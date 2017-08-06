@@ -62,7 +62,7 @@ describe('Meeting cost reducer: ', () => {
     });
   });
 
-  it('should set total cost to zero when stopped', () => {
+  it('should not total cost to zero when stopped', () => {
     let events = [
       actions.setNumberOfYearlyParticipants(5),
       actions.setAverageYearlyPay(50000),
@@ -74,6 +74,38 @@ describe('Meeting cost reducer: ', () => {
     let previousState = givenEventsProcessed(events);
 
     let output = meetingCost(previousState, actions.timerStopped);
+    expect(output.currentCost).to.equal(0.1361689814814815);
+  });
+
+
+  it('should not total cost to zero when resumed', () => {
+    let events = [
+      actions.setNumberOfYearlyParticipants(5),
+      actions.setAverageYearlyPay(50000),
+      actions.setNumberOfHourlyParticipants(1),
+      actions.setAverageHourlyPay(360),
+      actions.timerTick
+    ];
+
+    let previousState = givenEventsProcessed(events);
+
+    let output = meetingCost(previousState, actions.timerResumed);
+    expect(output.currentCost).to.equal(0.1361689814814815);
+  });
+
+
+  it('should set total cost to zero when started', () => {
+    let events = [
+      actions.setNumberOfYearlyParticipants(5),
+      actions.setAverageYearlyPay(50000),
+      actions.setNumberOfHourlyParticipants(1),
+      actions.setAverageHourlyPay(360),
+      actions.timerTick
+    ];
+
+    let previousState = givenEventsProcessed(events);
+
+    let output = meetingCost(previousState, actions.timerStarted);
     expect(output.currentCost).to.equal(0);
   });
 });

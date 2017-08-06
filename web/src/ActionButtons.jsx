@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { startTimer, stopTimer, pauseTimer } from './actions/actions';
+import { startTimer, stopTimer, pauseTimer, resumeTimer } from './actions/actions';
 
 const ActionButtons = ({
   startTimer,
   stopTimer,
   timerRunning,
+  timerPaused,
   fieldsValid,
-  pauseTimer
+  pauseTimer,
+  resumeTimer
 }) => {
   return (
     <div className="row">
@@ -16,10 +18,10 @@ const ActionButtons = ({
         <div className="form-group">
           <button
             className="btn btn-primary form-control"
-            onClick={startTimer}
+            onClick={timerPaused ? resumeTimer : startTimer}
             disabled={fieldsValid ? '' : 'disabled'}
           >
-            Start
+            {timerPaused ? 'Resume' : 'Start'}
           </button>
         </div>
       </div>
@@ -31,7 +33,7 @@ const ActionButtons = ({
         </div>
         <div className="form-group">
           <button className="btn btn-danger form-control" onClick={stopTimer}>
-            Stop/Reset
+            Stop
           </button>
         </div>
       </div>
@@ -43,7 +45,9 @@ ActionButtons.propTypes = {
   startTimer: PropTypes.func,
   stopTimer: PropTypes.func,
   pauseTimer: PropTypes.func,
+  resumeTimer: PropTypes.func,
   timerRunning: PropTypes.bool,
+  timerPaused: PropTypes.bool,
   fieldsValid: PropTypes.bool
 };
 
@@ -57,6 +61,9 @@ let mapDispatchToProps = dispatch => {
     },
     pauseTimer: () => {
       dispatch(pauseTimer);
+    },
+    resumeTimer: () => {
+      dispatch(resumeTimer);
     }
   };
 };
@@ -64,6 +71,7 @@ let mapDispatchToProps = dispatch => {
 let mapStateToProps = state => {
   return {
     timerRunning: state.timerRunning.timerStarted,
+    timerPaused: state.timerRunning.timerPaused,
     fieldsValid: hasValidFields(state)
   };
 };

@@ -7,6 +7,7 @@ import CostDisplay from './CostDisplay.jsx';
 import { Route } from 'react-router';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
+import { stopTimer } from './actions/actions';
 
 const ContainerView = ({
   showTimerInput,
@@ -66,6 +67,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(push('/'));
     },
     showCalculatorInput: () => {
+      dispatch(stopTimer);
       dispatch(push('/calculator'));
     }
   };

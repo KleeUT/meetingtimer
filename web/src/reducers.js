@@ -60,7 +60,7 @@ export const meetingCost = (
       ...state,
       currentCost: state.currentCost + calculatePerSecondCost(state)
     };
-  case Actions.timerStopped.type:
+  case Actions.timerStarted.type:
     return {
       ...state,
       currentCost: 0
@@ -134,23 +134,52 @@ export const timerRunning = (
     timerPaused: false,
     startTimer: false,
     stopTimer: false,
-    pauseTimer: false
+    pauseTimer: false,
+    resumeTimer: false
   },
   action
 ) => {
   switch (action.type) {
   case Actions.startTimer.type:
-    return { startTimer: true };
+    return { ...state, startTimer: true };
   case Actions.stopTimer.type:
-    return { stopTimer: true };
+    return { ...state, stopTimer: true };
   case Actions.pauseTimer.type:
-    return { pauseTimer: true };
+    return { ...state, pauseTimer: true };
+  case Actions.resumeTimer.type:
+    return { ...state, resumeTimer: true };
   case Actions.timerStarted.type:
-    return { timerStarted: true, timerPaused: false, startTimer: false };
+    return {
+      ...state,
+      timerStarted: true,
+      timerPaused: false,
+      startTimer: false,
+      resumeTimer: false
+    };
   case Actions.timerStopped.type:
-    return { timerStarted: false, timerPaused: false, stopTimer: false };
+    return {
+      ...state,
+      timerStarted: false,
+      timerPaused: false,
+      stopTimer: false,
+      resumeTimer: false
+    };
   case Actions.timerPaused.type:
-    return { timerStarted: false, timerPaused: true, pauseTimer: false };
+    return {
+      ...state,
+      timerStarted: false,
+      timerPaused: true,
+      pauseTimer: false,
+      resumeTimer: false
+    };
+  case Actions.timerResumed.type:
+    return {
+      ...state,
+      timerStarted: true,
+      timerPaused: false,
+      timerStopped: false,
+      resumeTimer: false
+    };
   default:
     return state;
   }
@@ -185,11 +214,9 @@ export const loggingReducer = (state = 'no state', action) => {
   return state;
 };
 
-let reducers = {
+export default {
   time,
   meetingCost,
   timerRunning,
   loggingReducer
 };
-
-export default reducers;

@@ -46,6 +46,14 @@ export const timerPaused = {
   type: 'TIMER_PAUSED'
 };
 
+export const timerResumed = {
+  type: 'TIMER_RESUMED'
+};
+
+export const resumeTimer = {
+  type: 'RESUME_TIMER'
+};
+
 export const timerStopped = {
   type: 'TIMER_STOPPED'
 };
