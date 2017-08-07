@@ -8,7 +8,7 @@ import StopWatch from './background/StopWatch.js';
 import { Route } from 'react-router';
 
 // router stuff
-import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createHashHistory';
 
 import {
   ConnectedRouter,
@@ -29,7 +29,6 @@ const store = createStore(
 );
 
 const stopWatch = new StopWatch(store);
-
 stopWatch.listen();
 
 ReactDOM.render(
